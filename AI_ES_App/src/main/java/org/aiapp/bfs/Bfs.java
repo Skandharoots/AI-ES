@@ -5,7 +5,6 @@ import org.aiapp.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Bfs {
@@ -47,9 +46,12 @@ public class Bfs {
         if (cState == null) {
             System.out.println("-1");
         } else {
+//            cState.getParent().forEach(parent -> {
+//                System.out.println(Arrays.deepToString(parent.getGrid()));
+//            });
             System.out.println(cState.getMoves());
             System.out.println("Total time: " + totalTime);
-            System.out.println("Moves: " + cState.getMoves().size());
+            System.out.println("Moves: " + cState.getDepth());
             System.out.println(Arrays.deepToString(cState.getGrid()));
         }
     }

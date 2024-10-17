@@ -4,6 +4,7 @@ import org.aiapp.direction.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Grid {
 
@@ -12,7 +13,7 @@ public class Grid {
     private long depth;
     private int[][] grid;
     private ArrayList<Direction> moves;
-    private Grid parent;
+    private ArrayList<Grid> parents;
 
     public Grid(int[][] grid, int width, int height, int posX, int posY) {
         this.grid = grid;
@@ -22,7 +23,6 @@ public class Grid {
         this.height = height;
         this.moves = new ArrayList<>();
         this.depth = 0;
-        this.parent = null;
     }
 
     public Grid(Grid parent, Direction direction) {
@@ -35,10 +35,11 @@ public class Grid {
         this.width = parent.width;
         this.height = parent.height;
         this.depth = parent.depth;
-        this.moves = parent.moves;
+        this.moves = new ArrayList<>();
         if (moveSpace(direction)) {
             this.depth++;
         }
+        this.moves.addAll(parent.getMoves());
     }
 
     @Override
@@ -77,8 +78,25 @@ public class Grid {
         return moves;
     }
 
-    public Grid getParent() {
-        return parent;
+    public ArrayList<Grid> getParent() {
+        return parents;
+    }
+
+    public Direction[] getMoveableDirections() {
+        ArrayList<Direction> moves = new ArrayList<>();
+        if (posX > 0) {
+            moves.add(Direction.L);
+        }
+        if (posX < this.width - 1) {
+            moves.add(Direction.R);
+        }
+        if (posY > 0) {
+            moves.add(Direction.U);
+        }
+        if (posY < this.height - 1) {
+            moves.add(Direction.D);
+        }
+        return moves.toArray(new Direction[0]);
     }
 
     private boolean moveSpace(Direction d) {
@@ -89,6 +107,7 @@ public class Grid {
                     posY--;
                     grid[posX][posY] = 0;
                     moves.add(d);
+                    System.out.println(Arrays.deepToString(getGrid()));
                     return true;
                 } else {
                     return false;

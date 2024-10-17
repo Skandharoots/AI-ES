@@ -48,9 +48,8 @@ public class Bfs {
             System.out.println("-1");
         } else {
             System.out.println(cState.getMoves());
-            System.out.println("Depth: " + cState.getDepth());
-            System.out.println("Operations: " + cState.getNumberOfOperations());
             System.out.println("Total time: " + totalTime);
+            System.out.println("Moves: " + cState.getMoves().size());
             System.out.println(Arrays.deepToString(cState.getGrid()));
         }
     }

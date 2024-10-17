@@ -11,7 +11,6 @@ public class Grid {
     private int posX, posY;
     private long depth;
     private int[][] grid;
-    private long numberOfOperations;
     private ArrayList<Direction> moves;
     private Grid parent;
 
@@ -23,7 +22,6 @@ public class Grid {
         this.height = height;
         this.moves = new ArrayList<>();
         this.depth = 0;
-        this.numberOfOperations = 0;
         this.parent = null;
     }
 
@@ -37,11 +35,10 @@ public class Grid {
         this.width = parent.width;
         this.height = parent.height;
         this.depth = parent.depth;
-        this.numberOfOperations = parent.numberOfOperations;
         this.moves = parent.moves;
-        moveSpace(direction);
-        this.depth++;
-
+        if (moveSpace(direction)) {
+            this.depth++;
+        }
     }
 
     @Override
@@ -80,10 +77,6 @@ public class Grid {
         return moves;
     }
 
-    public long getNumberOfOperations() {
-        return numberOfOperations;
-    }
-
     public Grid getParent() {
         return parent;
     }
@@ -96,8 +89,9 @@ public class Grid {
                     posY--;
                     grid[posX][posY] = 0;
                     moves.add(d);
-                    numberOfOperations++;
                     return true;
+                } else {
+                    return false;
                 }
             case D:
                 if (posY < height - 1) {
@@ -105,8 +99,9 @@ public class Grid {
                     posY++;
                     grid[posX][posY] = 0;
                     moves.add(d);
-                    numberOfOperations++;
                     return true;
+                } else {
+                    return false;
                 }
             case L:
                 if (posX > 0){
@@ -114,8 +109,9 @@ public class Grid {
                     posX--;
                     grid[posX][posY] = 0;
                     moves.add(d);
-                    numberOfOperations++;
                     return true;
+                } else {
+                    return false;
                 }
             case R:
                 if (posX < width - 1) {
@@ -123,8 +119,9 @@ public class Grid {
                     posX++;
                     grid[posX][posY] = 0;
                     moves.add(d);
-                    numberOfOperations++;
                     return true;
+                } else {
+                    return false;
                 }
         }
         return false;

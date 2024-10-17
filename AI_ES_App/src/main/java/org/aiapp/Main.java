@@ -18,6 +18,7 @@ public class Main {
                 InputResult inputResult = inputHandler.loadData();
                 Grid startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), inputResult.getPosX(), inputResult.getPosY());
                 Grid endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), inputResult.getWidth() - 1, inputResult.getHeight() - 1);
+                System.out.println(inputResult.getPosX() + " " + inputResult.getPosY());
                 Bfs bfs = new Bfs(startGrid, endGrid);
                 bfs.solve();
                 break;

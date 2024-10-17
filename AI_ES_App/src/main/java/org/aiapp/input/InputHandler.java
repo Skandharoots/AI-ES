@@ -7,6 +7,7 @@ public class InputHandler {
 
     private int width;
     private int height;
+    private int posX, posY;
     private int[][] grid;
     private InputResult inputResult;
 
@@ -53,6 +54,15 @@ public class InputHandler {
                 rowCount++;
             } else {
                 System.out.println("Wrong format!");
+            }
+        }
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (grid[i][j] == 0) {
+                    posX = i;
+                    posY = j;
+                }
             }
         }
 

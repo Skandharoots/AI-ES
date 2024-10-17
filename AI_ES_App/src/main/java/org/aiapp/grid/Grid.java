@@ -4,14 +4,14 @@ import org.aiapp.direction.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Grid {
 
     private int width, height;
     private int posX, posY;
+    private long depth;
     private int[][] grid;
-    private long operations;
+    private long numberOfOperations;
     private ArrayList<Direction> moves;
     private Grid parent;
 
@@ -19,12 +19,15 @@ public class Grid {
         this.grid = grid;
         this.posX = posX;
         this.posY = posY;
-        this.operations = 0;
+        this.width = width;
+        this.height = height;
         this.moves = new ArrayList<>();
+        this.depth = 0;
+        this.numberOfOperations = 0;
         this.parent = null;
     }
 
-    private Grid(Grid parent, Direction direction) {
+    public Grid(Grid parent, Direction direction) {
         this.grid = parent.grid.clone();
         for (int y = 0; y < this.grid.length; y++) {
             this.grid[y] = parent.grid[y].clone();
@@ -33,10 +36,11 @@ public class Grid {
         this.posY = parent.posY;
         this.width = parent.width;
         this.height = parent.height;
-        this.operations = parent.operations;
+        this.depth = parent.depth;
+        this.numberOfOperations = parent.numberOfOperations;
         this.moves = parent.moves;
-        this.moveSpace(direction);
-        this.operations++;
+        moveSpace(direction);
+        this.depth++;
 
     }
 
@@ -54,8 +58,8 @@ public class Grid {
             return false;
         }
         Grid other = (Grid) obj;
-        for (int y = 0; y < this.height; y++) {
-            for (int x = 0; x < this.width; x++) {
+        for (int y = 0; y < this.width; y++) {
+            for (int x = 0; x < this.height; x++) {
                 if (this.grid[y][x] != other.grid[y][x]) {
                     return false;
                 }
@@ -68,12 +72,16 @@ public class Grid {
         return grid;
     }
 
-    public long getOperations() {
-        return operations;
+    public long getDepth() {
+        return depth;
     }
 
     public ArrayList<Direction> getMoves() {
         return moves;
+    }
+
+    public long getNumberOfOperations() {
+        return numberOfOperations;
     }
 
     public Grid getParent() {
@@ -83,35 +91,39 @@ public class Grid {
     private boolean moveSpace(Direction d) {
         switch (d){
             case U:
-                if (posY>0){
+                if (posY > 0){
                     grid[posX][posY] = grid[posX][posY-1];
                     posY--;
                     grid[posX][posY] = 0;
                     moves.add(d);
+                    numberOfOperations++;
                     return true;
                 }
             case D:
-                if (posY<(grid.length-1)) {
+                if (posY < height - 1) {
                     grid[posX][posY] = grid[posX][posY+1];
                     posY++;
                     grid[posX][posY] = 0;
                     moves.add(d);
+                    numberOfOperations++;
                     return true;
                 }
             case L:
-                if (posX>0){
+                if (posX > 0){
                     grid[posX][posY] = grid[posX-1][posY];
                     posX--;
                     grid[posX][posY] = 0;
                     moves.add(d);
+                    numberOfOperations++;
                     return true;
                 }
             case R:
-                if (posX<(grid[0].length-1)) {
+                if (posX < width - 1) {
                     grid[posX][posY] = grid[posX+1][posY];
                     posX++;
                     grid[posX][posY] = 0;
                     moves.add(d);
+                    numberOfOperations++;
                     return true;
                 }
         }

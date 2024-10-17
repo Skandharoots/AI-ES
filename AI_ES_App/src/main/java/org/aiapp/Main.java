@@ -1,5 +1,7 @@
 package org.aiapp;
 
+import org.aiapp.bfs.Bfs;
+import org.aiapp.grid.Grid;
 import org.aiapp.input.InputHandler;
 import org.aiapp.input.InputResult;
 
@@ -14,9 +16,10 @@ public class Main {
 
             case "--bfs":
                 InputResult inputResult = inputHandler.loadData();
-                System.out.println(inputResult.getWidth());
-                System.out.println(inputResult.getHeight());
-                System.out.println(Arrays.deepToString(inputResult.getGrid()));
+                Grid startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), inputResult.getPosX(), inputResult.getPosY());
+                Grid endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), inputResult.getWidth() - 1, inputResult.getHeight() - 1);
+                Bfs bfs = new Bfs(startGrid, endGrid);
+                bfs.solve();
                 break;
 
             case "--dfs":

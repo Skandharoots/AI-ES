@@ -1,5 +1,8 @@
 package org.aiapp;
 
+import org.aiapp.input.InputHandler;
+import org.aiapp.input.InputResult;
+
 import java.util.Arrays;
 
 public class Main {

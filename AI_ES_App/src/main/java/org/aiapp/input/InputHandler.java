@@ -1,4 +1,4 @@
-package org.aiapp;
+package org.aiapp.input;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;

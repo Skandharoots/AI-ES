@@ -1,6 +1,4 @@
-package org.aiapp;
-
-import java.util.ArrayList;
+package org.aiapp.input;
 
 public class InputResult {
 

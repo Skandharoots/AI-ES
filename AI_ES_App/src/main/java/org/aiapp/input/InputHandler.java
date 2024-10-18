@@ -18,9 +18,8 @@ public class InputHandler {
 
         String result = "";
         Pattern regex1 = Pattern.compile("^[1-9][0-9]* [1-9][0-9]*$");
-        Scanner scanner = new Scanner(System.in);
-
         Boolean checkDimen = false;
+        Scanner scanner = new Scanner(System.in);
         while(!checkDimen) {
             System.out.println("Please enter the width and height of the grid separated by a space:");
             result = scanner.nextLine();
@@ -41,10 +40,9 @@ public class InputHandler {
 
         Boolean checkRow = false;
         int rowCount = 0;
-
+        Scanner scanner2 = new Scanner(System.in);
         while (!(rowCount >= height)) {
-            System.out.println("Please enter" + width + "row values separated by a space:");
-            Scanner scanner2 = new Scanner(System.in);
+            System.out.println("Please enter [" + width + "] row values for the [" + rowCount + "] row separated by a space:");
             String result2 = scanner2.nextLine();
             if ((regex2.matcher(result2)).find()) {
                 var separated = result2.split(" ");

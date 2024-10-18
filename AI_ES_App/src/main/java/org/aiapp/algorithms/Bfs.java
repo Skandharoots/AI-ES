@@ -1,12 +1,10 @@
-package org.aiapp.bfs;
+package org.aiapp.algorithms;
 
 import org.aiapp.direction.Direction;
 import org.aiapp.grid.Grid;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class Bfs {
 
@@ -48,7 +46,8 @@ public class Bfs {
 
         while (cState != null && !cState.equals(endGrid)) {
             if (!visitedGrids.contains(cState)) {
-                for (Direction d: Direction.values()) {
+                var moves = cState.getMoveableDirections();
+                for (Direction d: moves) {
                     queue.add(new Grid(cState, d));
                 }
                 visitedGrids.add(cState);

@@ -1,11 +1,9 @@
 package org.aiapp;
 
-import org.aiapp.bfs.Bfs;
+import org.aiapp.algorithms.Bfs;
 import org.aiapp.grid.Grid;
 import org.aiapp.input.InputHandler;
 import org.aiapp.input.InputResult;
-
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {

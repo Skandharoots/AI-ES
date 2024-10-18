@@ -44,7 +44,7 @@ public class Bfs {
 
         startTime = System.nanoTime();
 
-        System.out.println("Starting BSF...");
+        System.out.println("Starting BFS...");
 
         while (cState != null && !cState.equals(endGrid)) {
             if (!visitedGrids.contains(cState)) {

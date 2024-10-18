@@ -42,7 +42,7 @@ public class Bfs {
 
         startTime = System.nanoTime();
 
-        System.out.println("Starting BFS...");
+        System.out.println("Starting Breadth First Search Algorithm...");
 
         while (cState != null && !cState.equals(endGrid)) {
             if (!visitedGrids.contains(cState)) {
@@ -61,8 +61,8 @@ public class Bfs {
             System.out.println("-1");
         } else {
             double seconds = totalTime / 1_000_000_000.0;
-            cState.getHistory().forEach(this::visualize);
-            System.out.println(cState.getMoves());
+            cState.visualize();
+            System.out.println(cState.visualizeMoves());
             System.out.println("Moves: " + cState.getDepth());
             System.out.println("Total time: " + seconds + "s");
 

@@ -4,6 +4,7 @@ import org.aiapp.direction.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Grid {
@@ -12,19 +13,15 @@ public class Grid {
     private int posX, posY;
     private long depth;
     private int[][] grid;
-    private ArrayList<Direction> moves;
+    private Direction move;
     private Grid parent;
-    private ArrayList<int[][]> history;
 
-    public Grid(int[][] grid, int width, int height, int posX, int posY) {
+    public Grid(int[][] grid, int width, int height) {
         this.grid = grid;
-        this.posX = posX;
-        this.posY = posY;
         this.width = width;
         this.height = height;
-        this.moves = new ArrayList<>();
-        this.history = new ArrayList<>();
-        this.history.add(grid);
+        this.move = null;
+        getPosXAndPosY();
         this.depth = 0;
     }
 
@@ -38,15 +35,12 @@ public class Grid {
         this.width = parent.width;
         this.height = parent.height;
         this.depth = parent.depth;
-        this.moves = new ArrayList<>();
-        this.history = new ArrayList<>();
-        this.history.addAll(parent.getHistory());
         this.parent = parent;
         if (moveSpace(direction)) {
             this.depth++;
-            history.add(this.grid);
+            this.move = direction;
         }
-        this.moves.addAll(parent.getMoves());
+
     }
 
     @Override
@@ -73,6 +67,43 @@ public class Grid {
         return true;
     }
 
+    public ArrayList<Direction> visualizeMoves() {
+        ArrayList<Direction> moves = new ArrayList<>();
+        moves.add(move);
+        Grid gridParent = getParent();
+
+        for (int k = 0; k < depth - 1; k++) {
+            moves.add(gridParent.getMoves());
+            gridParent = gridParent.getParent();
+        }
+
+        return moves;
+    }
+
+    public void visualize() {
+
+        ArrayList<int[][]> grids = new ArrayList<>();
+        grids.add(grid);
+        Grid gridParent = getParent();
+        grids.add(gridParent.getGrid());
+        for (int k = 0; k < depth - 1; k++) {
+            gridParent = gridParent.getParent();
+            grids.add(gridParent.getGrid());
+        }
+        Collections.reverse(grids);
+        grids.forEach(grid -> {
+            for (int x = 0; x < width; x++) {
+                System.out.print("[");
+                for (int y = 0; y < height; y++) {
+                    System.out.print(" " + grid[x][y]);
+                }
+                System.out.println(" ]");
+            }
+            System.out.println();
+        });
+
+    }
+
     public int[][] getGrid() {
         return grid;
     }
@@ -81,8 +112,8 @@ public class Grid {
         return depth;
     }
 
-    public ArrayList<Direction> getMoves() {
-        return moves;
+    public Direction getMoves() {
+        return move;
     }
 
     public int getWidth() {
@@ -97,8 +128,16 @@ public class Grid {
         return parent;
     }
 
-    public ArrayList<int[][]> getHistory() {
-        return history;
+    public void getPosXAndPosY() {
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (grid[i][j] == 0) {
+                    posX = i;
+                    posY = j;
+                }
+            }
+        }
     }
 
     public Direction[] getMoveableDirections() {
@@ -125,7 +164,6 @@ public class Grid {
                     grid[posX][posY] = grid[posX][posY-1];
                     posY--;
                     grid[posX][posY] = 0;
-                    moves.add(d);
                     return true;
                 } else {
                     return false;
@@ -135,7 +173,6 @@ public class Grid {
                     grid[posX][posY] = grid[posX][posY+1];
                     posY++;
                     grid[posX][posY] = 0;
-                    moves.add(d);
                     return true;
                 } else {
                     return false;
@@ -145,7 +182,6 @@ public class Grid {
                     grid[posX][posY] = grid[posX-1][posY];
                     posX--;
                     grid[posX][posY] = 0;
-                    moves.add(d);
                     return true;
                 } else {
                     return false;
@@ -155,7 +191,6 @@ public class Grid {
                     grid[posX][posY] = grid[posX+1][posY];
                     posX++;
                     grid[posX][posY] = 0;
-                    moves.add(d);
                     return true;
                 } else {
                     return false;

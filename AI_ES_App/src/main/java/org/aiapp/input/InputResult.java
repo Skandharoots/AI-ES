@@ -9,7 +9,6 @@ public class InputResult {
 
     private int width;
     private int height;
-    private int posX, posY;
     private int[][] grid;
     private int[][] endGrid;
 
@@ -17,7 +16,6 @@ public class InputResult {
         this.width = width;
         this.height = height;
         this.grid = grid;
-        getPosXAndPosY();
     }
 
     public int getWidth() {
@@ -28,14 +26,6 @@ public class InputResult {
         return height;
     }
 
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
     public int[][] getGrid() {
         return grid;
     }
@@ -43,18 +33,6 @@ public class InputResult {
     public int[][] getEndGrid() {
         endGrid = solveEndGrid();
         return endGrid;
-    }
-
-    public void getPosXAndPosY() {
-
-        for (int i = 0; i < width - 1; i++) {
-            for (int j = 0; j < height - 1; j++) {
-                if (grid[i][j] == 0) {
-                    posX = i;
-                    posY = j;
-                }
-            }
-        }
     }
 
     public int[][] solveEndGrid() {

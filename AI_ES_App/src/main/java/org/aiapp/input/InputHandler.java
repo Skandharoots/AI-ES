@@ -7,7 +7,6 @@ public class InputHandler {
 
     private int width;
     private int height;
-    private int posX, posY;
     private int[][] grid;
     private InputResult inputResult;
 
@@ -42,7 +41,7 @@ public class InputHandler {
         int rowCount = 0;
         Scanner scanner2 = new Scanner(System.in);
         while (!(rowCount >= height)) {
-            System.out.println("Please enter [" + width + "] row values for the [" + rowCount + "] row separated by a space:");
+            System.out.println("Please enter [" + width + "] row values for the [" + (rowCount + 1) + "] row separated by a space:");
             String result2 = scanner2.nextLine();
             if ((regex2.matcher(result2)).find()) {
                 var separated = result2.split(" ");
@@ -52,15 +51,6 @@ public class InputHandler {
                 rowCount++;
             } else {
                 System.out.println("Wrong format!");
-            }
-        }
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                if (grid[i][j] == 0) {
-                    posX = i;
-                    posY = j;
-                }
             }
         }
 

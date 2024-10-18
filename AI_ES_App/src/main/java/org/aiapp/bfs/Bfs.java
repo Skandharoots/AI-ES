@@ -46,13 +46,10 @@ public class Bfs {
         if (cState == null) {
             System.out.println("-1");
         } else {
-//            cState.getParent().forEach(parent -> {
-//                System.out.println(Arrays.deepToString(parent.getGrid()));
-//            });
+            cState.getHistory().forEach(arr -> System.out.println(Arrays.deepToString(arr)));
             System.out.println(cState.getMoves());
             System.out.println("Total time: " + totalTime);
             System.out.println("Moves: " + cState.getDepth());
-            System.out.println(Arrays.deepToString(cState.getGrid()));
         }
     }
 }

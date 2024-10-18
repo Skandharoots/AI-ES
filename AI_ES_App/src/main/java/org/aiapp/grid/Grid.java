@@ -13,7 +13,8 @@ public class Grid {
     private long depth;
     private int[][] grid;
     private ArrayList<Direction> moves;
-    private ArrayList<Grid> parents;
+    private Grid parent;
+    private ArrayList<int[][]> history;
 
     public Grid(int[][] grid, int width, int height, int posX, int posY) {
         this.grid = grid;
@@ -22,6 +23,8 @@ public class Grid {
         this.width = width;
         this.height = height;
         this.moves = new ArrayList<>();
+        this.history = new ArrayList<>();
+        this.history.add(grid);
         this.depth = 0;
     }
 
@@ -36,8 +39,12 @@ public class Grid {
         this.height = parent.height;
         this.depth = parent.depth;
         this.moves = new ArrayList<>();
+        this.history = new ArrayList<>();
+        this.history.addAll(parent.getHistory());
+        this.parent = parent;
         if (moveSpace(direction)) {
             this.depth++;
+            history.add(this.grid);
         }
         this.moves.addAll(parent.getMoves());
     }
@@ -78,8 +85,12 @@ public class Grid {
         return moves;
     }
 
-    public ArrayList<Grid> getParent() {
-        return parents;
+    public Grid getParent() {
+        return parent;
+    }
+
+    public ArrayList<int[][]> getHistory() {
+        return history;
     }
 
     public Direction[] getMoveableDirections() {
@@ -107,7 +118,6 @@ public class Grid {
                     posY--;
                     grid[posX][posY] = 0;
                     moves.add(d);
-                    System.out.println(Arrays.deepToString(getGrid()));
                     return true;
                 } else {
                     return false;

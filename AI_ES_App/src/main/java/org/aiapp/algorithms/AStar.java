@@ -27,6 +27,8 @@ public class AStar {
         long startTime, endTime, totalTime;
         startTime = System.nanoTime();
 
+        System.out.println("Starting A* Algorithm...");
+
         while (cState != null && !cState.equals(endGrid)) {
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();

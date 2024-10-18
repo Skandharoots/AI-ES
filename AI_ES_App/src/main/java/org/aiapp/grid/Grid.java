@@ -77,6 +77,8 @@ public class Grid {
             gridParent = gridParent.getParent();
         }
 
+        Collections.reverse(moves);
+
         return moves;
     }
 
@@ -92,10 +94,10 @@ public class Grid {
         }
         Collections.reverse(grids);
         grids.forEach(grid -> {
-            for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 System.out.print("[");
-                for (int y = 0; y < height; y++) {
-                    System.out.print(" " + grid[x][y]);
+                for (int x = 0; x < width; x++) {
+                    System.out.print(" " + grid[y][x]);
                 }
                 System.out.println(" ]");
             }
@@ -130,11 +132,11 @@ public class Grid {
 
     public void getPosXAndPosY() {
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                if (grid[i][j] == 0) {
-                    posX = i;
-                    posY = j;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (grid[y][x] == 0) {
+                    posX = x;
+                    posY = y;
                 }
             }
         }
@@ -161,36 +163,36 @@ public class Grid {
         switch (d){
             case U:
                 if (posY > 0){
-                    grid[posX][posY] = grid[posX][posY-1];
+                    grid[posY][posX] = grid[posY - 1][posX];
                     posY--;
-                    grid[posX][posY] = 0;
+                    grid[posY][posY] = 0;
                     return true;
                 } else {
                     return false;
                 }
             case D:
                 if (posY < height - 1) {
-                    grid[posX][posY] = grid[posX][posY+1];
+                    grid[posY][posX] = grid[posY + 1][posX];
                     posY++;
-                    grid[posX][posY] = 0;
+                    grid[posY][posX] = 0;
                     return true;
                 } else {
                     return false;
                 }
             case L:
                 if (posX > 0){
-                    grid[posX][posY] = grid[posX-1][posY];
+                    grid[posY][posX] = grid[posY][posX - 1];
                     posX--;
-                    grid[posX][posY] = 0;
+                    grid[posY][posX] = 0;
                     return true;
                 } else {
                     return false;
                 }
             case R:
                 if (posX < width - 1) {
-                    grid[posX][posY] = grid[posX+1][posY];
+                    grid[posY][posX] = grid[posY][posX+1];
                     posX++;
-                    grid[posX][posY] = 0;
+                    grid[posY][posX] = 0;
                     return true;
                 } else {
                     return false;

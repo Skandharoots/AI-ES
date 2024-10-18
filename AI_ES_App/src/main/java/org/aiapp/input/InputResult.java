@@ -39,9 +39,9 @@ public class InputResult {
 
         ArrayList<Integer> grid1d = new ArrayList<>();
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                grid1d.add(grid[i][j]);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                grid1d.add(grid[y][x]);
             }
         }
         grid1d.sort(Comparator.naturalOrder());
@@ -54,13 +54,13 @@ public class InputResult {
 
         grid1d.set(grid1d.size() - 1, first);
 
-        int[][] endGridState = new int[width][height];
+        int[][] endGridState = new int[height][width];
 
         int k = 0;
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                endGridState[i][j] = grid1d.get(k);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                endGridState[y][x] = grid1d.get(k);
                 k++;
             }
         }

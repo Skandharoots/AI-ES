@@ -3,6 +3,7 @@ package org.aiapp;
 import org.aiapp.algorithms.AStar;
 import org.aiapp.algorithms.Bfs;
 import org.aiapp.algorithms.Dfs;
+import org.aiapp.algorithms.IDDFS;
 import org.aiapp.grid.Grid;
 import org.aiapp.heuristics.Heuristics;
 import org.aiapp.input.InputHandler;
@@ -31,7 +32,8 @@ public class Main {
                 break;
 
             case "--idfs":
-
+                IDDFS iddfs = new IDDFS(startGrid, endGrid);
+                iddfs.solve(1000000000);
                 break;
 
             case "--bf":

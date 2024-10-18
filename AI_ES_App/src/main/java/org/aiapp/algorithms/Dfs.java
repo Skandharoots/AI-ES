@@ -2,11 +2,7 @@ package org.aiapp.algorithms;
 
 import org.aiapp.direction.Direction;
 import org.aiapp.grid.Grid;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Stack;
 
 public class Dfs {
 

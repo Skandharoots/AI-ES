@@ -27,7 +27,7 @@ public class InputHandler {
                 var separated = result.split(" ");
                 width = Integer.parseInt(separated[0]);
                 height = Integer.parseInt(separated[1]);
-                grid = new int[width][height];
+                grid = new int[height][width];
             } else {
                 checkDimen = false;
                 System.out.println("Wrong format!");

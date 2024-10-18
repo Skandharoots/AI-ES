@@ -6,6 +6,7 @@ import org.aiapp.grid.Grid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Bfs {
 
@@ -18,6 +19,20 @@ public class Bfs {
     public Bfs(Grid startGrid, Grid endGrid) {
         this.startGrid = startGrid;
         this.endGrid = endGrid;
+    }
+
+    public void visualize(int[][] grid) {
+        int width = startGrid.getWidth();
+        int height = startGrid.getHeight();
+
+        for (int x = 0; x < width; x++) {
+            System.out.print("[");
+            for (int y = 0; y < height; y++) {
+                System.out.print(" " + grid[x][y]);
+            }
+            System.out.println(" ]");
+        }
+        System.out.println();
     }
 
 
@@ -46,10 +61,12 @@ public class Bfs {
         if (cState == null) {
             System.out.println("-1");
         } else {
-            cState.getHistory().forEach(arr -> System.out.println(Arrays.deepToString(arr)));
+            double seconds = totalTime / 1_000_000_000.0;
+            cState.getHistory().forEach(this::visualize);
             System.out.println(cState.getMoves());
-            System.out.println("Total time: " + totalTime);
             System.out.println("Moves: " + cState.getDepth());
+            System.out.println("Total time: " + seconds + "s");
+
         }
     }
 }

@@ -85,6 +85,14 @@ public class Grid {
         return moves;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public Grid getParent() {
         return parent;
     }

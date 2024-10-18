@@ -37,8 +37,7 @@ public class IDDFS {
         var moves = startGrid.getMoveableDirections();
         for (Direction d: moves) {
             Grid nextGrid = new Grid(startGrid, d);
-            if (!visited.contains(startGrid)) {
-                visited.add(nextGrid);
+            if (!visited.contains(nextGrid)) {
                 if (dls(nextGrid, endGrid, limit - 1, visited)) {
                     return true;
                 }
@@ -52,16 +51,13 @@ public class IDDFS {
         startTime = System.nanoTime();
         long totalTime;
 
-        Stack<Grid> queue = new Stack<>();
-
-        for (int i = 0; i <= limit; i++) {
+        for (int lim = 0; lim <= limit; ++lim) {
             LinkedList<Grid> visited = new LinkedList<>();
-            if (dls(startGrid, endGrid, limit, visited)) {
+            if (dls(startGrid, endGrid, lim, visited)) {
                 return true;
             }
         }
         return false;
-
     }
 
 

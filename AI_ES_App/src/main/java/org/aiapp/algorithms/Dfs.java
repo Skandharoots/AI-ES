@@ -2,14 +2,17 @@ package org.aiapp.algorithms;
 
 import org.aiapp.direction.Direction;
 import org.aiapp.grid.Grid;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Stack;
 
 public class Dfs {
 
     private Grid startGrid, endGrid;
     private HashSet<Grid> visitedList;
-    private Stack<Grid> queue;
+    private HashSet<Grid> queue;
 
     public Dfs(Grid startGrid, Grid endGrid) {
         this.startGrid = startGrid;
@@ -20,7 +23,7 @@ public class Dfs {
 
         Grid cState = startGrid;
         visitedList = new HashSet<>();
-        queue = new Stack<>();
+        queue = new HashSet<>();
         long startTime = System.nanoTime();
         long endTime, totalTime;
 
@@ -30,11 +33,12 @@ public class Dfs {
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction d: moves) {
-                    queue.push(new Grid(cState, d));
+                    queue.add(new Grid(cState, d));
                 }
                 visitedList.add(cState);
             }
-            cState = queue.pop();
+            cState = queue.stream().reduce((a, b) -> b).get();
+            queue.remove(cState);
         }
 
         endTime = System.nanoTime();

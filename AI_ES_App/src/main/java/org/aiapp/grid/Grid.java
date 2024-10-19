@@ -165,7 +165,7 @@ public class Grid {
                 if (posY > 0){
                     grid[posY][posX] = grid[posY - 1][posX];
                     posY--;
-                    grid[posY][posY] = 0;
+                    grid[posY][posX] = 0;
                     return true;
                 } else {
                     return false;

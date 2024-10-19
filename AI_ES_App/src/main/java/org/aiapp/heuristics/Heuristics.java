@@ -19,14 +19,16 @@ public class Heuristics implements Comparator<Grid> {
 
     @Override
     public int compare(Grid s1, Grid s2) {
-        long dEstimate1 = s1.getDepth(), dEstimate2 = s2.getDepth();
+        long dEstimate1 = s1.getDepth();
+        long dEstimate2 = s2.getDepth();
+
         if (heuristic == 0) {
-            for(int y = 0; y < endState.getWidth(); y++) {
-                for(int x = 0; x < endState.getHeight(); x++) {
-                    if (endState.getGrid()[x][y] != s1.getGrid()[x][y] && s1.getGrid()[x][y] != 0) {
+            for(int y = 0; y < endState.getHeight(); y++) {
+                for(int x = 0; x < endState.getWidth(); x++) {
+                    if (endState.getGrid()[y][x] != s1.getGrid()[y][x] && s1.getGrid()[y][x] != 0) {
                         dEstimate1++;
                     }
-                    if (endState.getGrid()[x][y] != s2.getGrid()[x][y] && s2.getGrid()[x][y] != 0) {
+                    if (endState.getGrid()[y][x] != s2.getGrid()[y][x] && s2.getGrid()[y][x] != 0) {
                         dEstimate2++;
                     }
                 }
@@ -35,13 +37,13 @@ public class Heuristics implements Comparator<Grid> {
         else if (heuristic == 1){ //for mode 1
             for (int stY = 0; stY < endState.getWidth(); stY++) {
                 for (int stX = 0; stX < endState.getHeight(); stX++) {
-                    int value1 = s1.getGrid()[stX][stY], value2 = s2.getGrid()[stX][stY];
+                    int value1 = s1.getGrid()[stY][stX], value2 = s2.getGrid()[stY][stX];
                     for (int enY = 0; enY < endState.getWidth(); enY++) {
                         for (int enX = 0; enX < endState.getHeight(); enX++) {
-                            if (value1 != 0 && value1 == endState.getGrid()[enX][enY]) {
+                            if (value1 != 0 && value1 == endState.getGrid()[enY][enX]) {
                                 dEstimate1 = dEstimate1 + Math.abs(stX-enX) + Math.abs(stY-enY);
                             }
-                            if (value2 !=0 && value2 == endState.getGrid()[enX][enY]) {
+                            if (value2 !=0 && value2 == endState.getGrid()[enY][enX]) {
                                 dEstimate2 = dEstimate2 + Math.abs(stX-enX) + Math.abs(stY-enY);
                             }
                         }

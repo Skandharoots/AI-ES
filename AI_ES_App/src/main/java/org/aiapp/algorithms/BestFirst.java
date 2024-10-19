@@ -1,0 +1,60 @@
+package org.aiapp.algorithms;
+
+import org.aiapp.direction.Direction;
+import org.aiapp.grid.Grid;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class BestFirst {
+
+    private Grid startGrid, endGrid;
+    private ArrayList<Grid> visitedList;
+    private PriorityQueue<Grid> queue;
+    Comparator<Grid> heuristics;
+
+    public BestFirst(Grid startGrid, Grid endGrid, Comparator<Grid> heuristics) {
+        this.startGrid = startGrid;
+        this.endGrid = endGrid;
+        this.heuristics = heuristics;
+    }
+
+    public void solve() {
+        Grid cState = startGrid;
+        visitedList = new ArrayList<>();
+        queue = new PriorityQueue<>(100, heuristics);
+        long startTime, endTime, totalTime;
+        startTime = System.nanoTime();
+
+        System.out.println("Starting Best First Algorithm...");
+
+        queue.add(startGrid);
+        while (cState != null && !cState.equals(endGrid)) {
+            cState = queue.poll();
+            if (!visitedList.contains(cState)) {
+                var moves = cState.getMoveableDirections();
+                for (Direction direction : moves) {
+                    Grid newGrid = new Grid(cState, direction);
+                    if (!queue.contains(newGrid)) {
+                        queue.add(newGrid);
+                    }
+                }
+                visitedList.add(cState);
+            }
+        }
+        endTime = System.nanoTime();
+        totalTime = endTime - startTime;
+        if (cState == null) {
+            System.out.println("-1");
+        }
+        else {
+            double seconds = totalTime / 1_000_000_000.0;
+            cState.visualize();
+            System.out.println(cState.visualizeMoves());
+            System.out.println("Moves: " + cState.getDepth());
+            System.out.println("Total time: " + seconds + "s");
+        }
+    }
+
+}

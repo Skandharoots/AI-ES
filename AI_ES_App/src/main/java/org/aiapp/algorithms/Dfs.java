@@ -2,13 +2,15 @@ package org.aiapp.algorithms;
 
 import org.aiapp.direction.Direction;
 import org.aiapp.grid.Grid;
+
+import java.util.ArrayDeque;
 import java.util.HashSet;
 
 public class Dfs {
 
     private Grid startGrid, endGrid;
     private HashSet<Grid> visitedList;
-    private HashSet<Grid> queue;
+    private ArrayDeque<Grid> queue;
 
     public Dfs(Grid startGrid, Grid endGrid) {
         this.startGrid = startGrid;
@@ -19,7 +21,7 @@ public class Dfs {
 
         Grid cState = startGrid;
         visitedList = new HashSet<>();
-        queue = new HashSet<>();
+        queue = new ArrayDeque<>();
         long startTime = System.nanoTime();
         long endTime, totalTime;
 
@@ -29,12 +31,11 @@ public class Dfs {
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction d: moves) {
-                    queue.add(new Grid(cState, d));
+                    queue.push(new Grid(cState, d));
                 }
                 visitedList.add(cState);
             }
-            cState = queue.stream().reduce((a, b) -> b).get();
-            queue.remove(cState);
+            cState = queue.pop();
         }
 
         endTime = System.nanoTime();

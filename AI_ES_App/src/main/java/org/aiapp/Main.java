@@ -35,31 +35,15 @@ public class Main {
                 break;
 
             case "--bf":
-                if (args[1].equals("0")) {
                     heuristics = new Heuristics(0, endGrid);
                     BestFirst bf = new BestFirst(startGrid, endGrid, heuristics);
                     bf.solve();
-                } else if (args[1].equals("1")) {
-                    heuristics = new Heuristics(1, endGrid);
-                    BestFirst bf = new BestFirst(startGrid, endGrid, heuristics);
-                    bf.solve();
-                } else {
-                    System.out.println("Invalid heuristic");
-                }
                 break;
 
             case "--astar":
-                if (args[1].equals("0")) {
-                    heuristics = new Heuristics(0, endGrid);
-                    AStar astar = new AStar(startGrid, endGrid, heuristics);
-                    astar.solve();
-                } else if (Objects.equals(args[1], "1")) {
                     heuristics = new Heuristics(1, endGrid);
                     AStar astar = new AStar(startGrid, endGrid, heuristics);
                     astar.solve();
-                } else {
-                    System.out.println("Unknown heuristic!");
-                }
                 break;
 
             case "--sma":

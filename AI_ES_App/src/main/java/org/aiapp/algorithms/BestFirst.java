@@ -29,19 +29,15 @@ public class BestFirst {
 
         System.out.println("Starting Best First Algorithm...");
 
-        queue.add(startGrid);
         while (cState != null && !cState.equals(endGrid)) {
-            cState = queue.poll();
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction direction : moves) {
-                    Grid newGrid = new Grid(cState, direction);
-                    if (!queue.contains(newGrid)) {
-                        queue.add(newGrid);
-                    }
+                        queue.add(new Grid(cState, direction));
                 }
                 visitedList.add(cState);
             }
+            cState = queue.poll();
         }
         endTime = System.nanoTime();
         totalTime = endTime - startTime;

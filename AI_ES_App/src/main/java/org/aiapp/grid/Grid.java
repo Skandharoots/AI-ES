@@ -9,6 +9,7 @@ public class Grid {
     private int width, height;
     private int posX, posY;
     private long depth;
+    private double distance;
     private int[][] grid;
     private Direction move;
     private Grid parent;
@@ -22,6 +23,7 @@ public class Grid {
         this.move = null;
         getPosXAndPosY();
         this.depth = 0;
+        this.distance = 0;
     }
 
     public Grid(Grid parent, Direction direction) {
@@ -116,6 +118,52 @@ public class Grid {
 
     public long getDepth() {
         return depth;
+    }
+
+    public void setDistance(double distance) {
+        this.distance += distance;
+    }
+
+    public double getDistAstEuc() {
+        Grid start = getParent();
+        for (int i = 0; i < depth - 1; i++) {
+            start = start.getParent();
+        }
+        double distance = 0;
+        for (int stY = 0; stY < getWidth(); stY++) {
+            for (int stX = 0; stX < getHeight(); stX++) {
+                int value1 = start.getGrid()[stY][stX];
+                for (int enY = 0; enY < getWidth(); enY++) {
+                    for (int enX = 0; enX < getHeight(); enX++) {
+                        if (value1 != 0 && value1 == getParent().getGrid()[enY][enX]) {
+                            distance += Math.sqrt(Math.pow(stX - enX, 2) + Math.pow(stY - enY, 2));
+                        }
+                    }
+                }
+            }
+        }
+        return distance;
+    }
+
+    public double getDistAstMan() {
+        Grid start = getParent();
+        for (int i = 0; i < depth - 1; i++) {
+            start = start.getParent();
+        }
+        double distance = 0;
+        for (int stY = 0; stY < getWidth(); stY++) {
+            for (int stX = 0; stX < getHeight(); stX++) {
+                int value1 = start.getGrid()[stY][stX];
+                for (int enY = 0; enY < getWidth(); enY++) {
+                    for (int enX = 0; enX < getHeight(); enX++) {
+                        if (value1 != 0 && value1 == getParent().getGrid()[enY][enX]) {
+                            distance += Math.abs(stX - enX) + Math.abs(stY - enY);
+                        }
+                    }
+                }
+            }
+        }
+        return distance;
     }
 
     public Direction getMoves() {

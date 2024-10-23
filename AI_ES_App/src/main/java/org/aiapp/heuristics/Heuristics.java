@@ -30,6 +30,9 @@ public class Heuristics implements Comparator<Grid> {
         } else if (algorithm.equals("astar")) {
             dEstimate1 = s1.getDepth();
             dEstimate2 = s2.getDepth();
+        } else if (algorithm.equals("sma")) {
+            dEstimate1 = s1.getDepth();
+            dEstimate2 = s2.getDepth();
         } else {
             throw new IllegalArgumentException("Unsupported algorithm: " + algorithm);
         }
@@ -67,7 +70,6 @@ public class Heuristics implements Comparator<Grid> {
                     }
                 }
             }
-
         }
 
         return Double.compare(dEstimate1, dEstimate2);

@@ -8,8 +8,6 @@ import java.util.*;
 public class IDDFS {
 
     private Grid startGrid, endGrid;
-    private long startTime;
-    private long endTime;
 
     public IDDFS(Grid startGrid, Grid endGrid) {
         System.out.println("Starting Iterative Deepening Depth First Search Algorithm...");
@@ -18,7 +16,7 @@ public class IDDFS {
 
     }
 
-    public boolean dls(Grid startGrid, Grid endGrid, int limit, LinkedList<Grid> visited) {
+    public boolean dls(Grid startGrid, Grid endGrid, int limit, int permCnt, LinkedList<Grid> visited, ArrayList<Direction> permutations) {
 
         if (startGrid.equals(endGrid)) {
             startGrid.visualize();
@@ -34,26 +32,46 @@ public class IDDFS {
 
         visited.add(startGrid);
 
-        var moves = startGrid.getMoveableDirections();
-        for (Direction d: moves) {
+        while (permCnt < permutations.size()) {
+            Direction d = permutations.get(permCnt);
             Grid nextGrid = new Grid(startGrid, d);
-            if (!visited.contains(nextGrid)) {
-                if (dls(nextGrid, endGrid, limit - 1, visited)) {
-                    return true;
-                }
+            startGrid = nextGrid;
+            permCnt++;
+            limit--;
+
+            if (limit <= 0) {
+                System.out.println("-1");
+                return false;
+            }
+
+            if (startGrid.equals(endGrid)) {
+                startGrid.visualize();
+                System.out.println(startGrid.visualizeMoves());
+                System.out.println("Moves: " + startGrid.getDepth());
+                return true;
             }
         }
+            var moves = startGrid.getMoveableDirections();
+            for (Direction d: moves) {
+                Grid nextGrid = new Grid(startGrid, d);
+                if (!visited.contains(nextGrid)) {
+                    if (dls(nextGrid, endGrid, limit - 1, permCnt, visited, permutations)) {
+                        return true;
+                    }
+                }
+            }
+
+
+
         return false;
     }
 
     public boolean solve(int limit) {
 
-        startTime = System.nanoTime();
-        long totalTime;
-
-        for (int lim = 0; lim <= limit; ++lim) {
+        ArrayList<Direction> permutations = new ArrayList<>(startGrid.getPermutationsList());
+        for (int lim = 1; lim <= limit; lim++) {
             LinkedList<Grid> visited = new LinkedList<>();
-            if (dls(startGrid, endGrid, lim, visited)) {
+            if (dls(startGrid, endGrid, lim, 0, visited, permutations)) {
                 return true;
             }
         }

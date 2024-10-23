@@ -51,17 +51,16 @@ public class IDDFS {
                 return true;
             }
         }
-            var moves = startGrid.getMoveableDirections();
-            for (Direction d: moves) {
-                Grid nextGrid = new Grid(startGrid, d);
-                if (!visited.contains(nextGrid)) {
-                    if (dls(nextGrid, endGrid, limit - 1, permCnt, visited, permutations)) {
-                        return true;
-                    }
+
+        var moves = startGrid.getMoveableDirections();
+        for (Direction d: moves) {
+            Grid nextGrid = new Grid(startGrid, d);
+            if (!visited.contains(nextGrid)) {
+                if (dls(nextGrid, endGrid, limit - 1, permCnt, visited, permutations)) {
+                    return true;
                 }
             }
-
-
+        }
 
         return false;
     }

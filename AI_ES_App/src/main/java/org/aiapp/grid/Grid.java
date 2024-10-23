@@ -97,7 +97,11 @@ public class Grid {
             for (int y = 0; y < height; y++) {
                 System.out.print("[");
                 for (int x = 0; x < width; x++) {
-                    System.out.print(" " + grid[y][x]);
+                    if (grid[y][x] == 0) {
+                        System.out.print("  ");
+                    } else {
+                        System.out.print(" " + grid[y][x]);
+                    }
                 }
                 System.out.println(" ]");
             }

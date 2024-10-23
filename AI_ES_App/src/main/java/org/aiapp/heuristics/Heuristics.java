@@ -65,8 +65,8 @@ public class Heuristics implements Comparator<Grid> {
             }
         } else if (algorithm.equals("astar")) {
             if (heuristic == 0) { //for Euclidian distance
-                dEstimate1 = s1.getDistAstEuc(); //get distance from start node to parent
-                dEstimate2 = s2.getDistAstEuc(); //get distance from start node to parent
+                dEstimate1 = s1.getParent().getDistance(); //get distance from start node to parent
+                dEstimate2 = s2.getParent().getDistance(); //get distance from start node to parent
 
                 //calculate euclidian distance from parent to current
                 for (int stY = 0; stY < endState.getWidth(); stY++) {
@@ -84,10 +84,13 @@ public class Heuristics implements Comparator<Grid> {
                         }
                     }
                 }
+                //update distance for current
+                s1.setDistance(dEstimate1);
+                s2.setDistance(dEstimate2);
             }
             else if (heuristic == 1) { //for Manhattan distance
-                dEstimate1 = s1.getDistAstMan(); //get distance from start node to parent
-                dEstimate2 = s2.getDistAstMan(); //get distance from start node to parent
+                dEstimate1 = s1.getParent().getDistance(); //get distance from start node to parent
+                dEstimate2 = s2.getParent().getDistance(); //get distance from start node to parent
 
                 //calculate manhattan distance from parent to current
                 for (int stY = 0; stY < endState.getWidth(); stY++) {
@@ -105,6 +108,9 @@ public class Heuristics implements Comparator<Grid> {
                         }
                     }
                 }
+                //update distance for current
+                s1.setDistance(dEstimate1);
+                s2.setDistance(dEstimate2);
             } else {
                 throw new IllegalArgumentException("Invalid heuristic distance.");
             }

@@ -1,5 +1,9 @@
 package org.aiapp.input;
 
+import org.aiapp.direction.Direction;
+
+import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -11,6 +15,25 @@ public class InputHandler {
     private InputResult inputResult;
 
     public InputHandler() {
+    }
+
+    public ArrayDeque<Direction> createPermutations(String list) {
+        String[] directions = list.split("(?!^)");
+        ArrayDeque<Direction> permutations = new ArrayDeque<>();
+        for (String c : directions) {
+            if (c.equals("U")) {
+                permutations.add(Direction.U);
+            } else if (c.equals("D")) {
+                permutations.add(Direction.D);
+            } else if (c.equals("L")) {
+                permutations.add(Direction.L);
+            } else if (c.equals("R")) {
+                permutations.add(Direction.R);
+            } else {
+                throw new IllegalArgumentException("Invalid direction: " + c);
+            }
+        }
+        return permutations;
     }
 
     public InputResult loadData() {

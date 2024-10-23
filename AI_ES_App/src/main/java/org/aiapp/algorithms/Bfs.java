@@ -3,6 +3,7 @@ package org.aiapp.algorithms;
 import org.aiapp.direction.Direction;
 import org.aiapp.grid.Grid;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -19,21 +20,6 @@ public class Bfs {
         this.endGrid = endGrid;
     }
 
-    public void visualize(int[][] grid) {
-        int width = startGrid.getWidth();
-        int height = startGrid.getHeight();
-
-        for (int x = 0; x < width; x++) {
-            System.out.print("[");
-            for (int y = 0; y < height; y++) {
-                System.out.print(" " + grid[x][y]);
-            }
-            System.out.println(" ]");
-        }
-        System.out.println();
-    }
-
-
     public void solve() {
         Grid cState = startGrid;
         visitedGrids = new ArrayList<>();
@@ -44,7 +30,13 @@ public class Bfs {
 
         System.out.println("Starting Breadth First Search Algorithm...");
 
-        while (cState != null && !cState.equals(endGrid)) {
+        while (cState != null && !cState.equals(endGrid) && !cState.getPermutationsList().isEmpty()) {
+            Direction d = cState.getNextPermutation();
+            visitedGrids.add(cState);
+            cState = new Grid(cState, d);
+        }
+
+        while (cState != null && !cState.equals(endGrid) && cState.getPermutationsList().isEmpty()) {
             if (!visitedGrids.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction d: moves) {

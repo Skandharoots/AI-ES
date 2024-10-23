@@ -27,7 +27,13 @@ public class Dfs {
 
         System.out.println("Starting Depth First Search Algorithm...");
 
-        while (cState != null && !cState.equals(endGrid)) {
+        while (cState != null && !cState.equals(endGrid) && !cState.getPermutationsList().isEmpty()) {
+            Direction d = cState.getNextPermutation();
+            visitedList.add(cState);
+            cState = new Grid(cState, d);
+        }
+
+        while (cState != null && !cState.equals(endGrid) && cState.getPermutationsList().isEmpty()) {
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction d: moves) {

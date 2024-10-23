@@ -2,10 +2,7 @@ package org.aiapp.grid;
 
 import org.aiapp.direction.Direction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Grid {
 
@@ -15,11 +12,13 @@ public class Grid {
     private int[][] grid;
     private Direction move;
     private Grid parent;
+    private ArrayDeque<Direction> permutations;
 
-    public Grid(int[][] grid, int width, int height) {
+    public Grid(int[][] grid, int width, int height, ArrayDeque<Direction> permutations) {
         this.grid = grid;
         this.width = width;
         this.height = height;
+        this.permutations = permutations;
         this.move = null;
         getPosXAndPosY();
         this.depth = 0;
@@ -34,6 +33,7 @@ public class Grid {
         this.posY = parent.posY;
         this.width = parent.width;
         this.height = parent.height;
+        this.permutations = parent.permutations;
         this.depth = parent.depth;
         this.parent = parent;
         if (moveSpace(direction)) {
@@ -128,6 +128,14 @@ public class Grid {
 
     public Grid getParent() {
         return parent;
+    }
+
+    public ArrayDeque<Direction> getPermutationsList() {
+        return permutations;
+    }
+
+    public Direction getNextPermutation() {
+        return permutations.poll();
     }
 
     public void getPosXAndPosY() {

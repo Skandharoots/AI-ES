@@ -35,15 +35,31 @@ public class Main {
                 break;
 
             case "--bf":
-                    heuristics = new Heuristics(0, endGrid);
+                if (args[1].equals("0")) {
+                    heuristics = new Heuristics(0, "bf" ,endGrid);
                     BestFirst bf = new BestFirst(startGrid, endGrid, heuristics);
                     bf.solve();
+                } else if (args[1].equals("1")) {
+                    heuristics = new Heuristics(1, "bf" ,endGrid);
+                    BestFirst bf = new BestFirst(startGrid, endGrid, heuristics);
+                    bf.solve();
+                } else {
+                    System.out.println("Invalid heuristic. Available values are 0 for Euclidian and 1 for Manhattan distances.");
+                }
                 break;
 
             case "--astar":
-                    heuristics = new Heuristics(1, endGrid);
+                if (args[1].equals("0")) {
+                    heuristics = new Heuristics(0, "astar" ,endGrid);
                     AStar astar = new AStar(startGrid, endGrid, heuristics);
                     astar.solve();
+                } else if (args[1].equals("1")) {
+                    heuristics = new Heuristics(1, "astar" ,endGrid);
+                    AStar astar = new AStar(startGrid, endGrid, heuristics);
+                    astar.solve();
+                } else {
+                    System.out.println("Invalid heuristic. Available values are 0 for Euclidian and 1 for Manhattan distances.");
+                }
                 break;
 
             case "--sma":

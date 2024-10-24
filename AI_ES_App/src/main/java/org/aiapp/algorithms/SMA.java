@@ -35,8 +35,8 @@ public class SMA {
         queue.forEach(grid -> {
             if (i.get() <= max) {
                 toRemove.add(grid);
-                i.set(i.get() + 1);
             }
+            i.set(i.get() + 1);
         });
         toRemove.forEach(node -> {
             queue.remove(node);

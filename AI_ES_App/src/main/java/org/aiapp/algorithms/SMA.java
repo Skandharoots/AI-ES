@@ -24,24 +24,6 @@ public class SMA {
         this.heuristics = heuristics;
     }
 
-    public boolean checkIfRedundant(Grid newGrid, ArrayList<Grid> visitedList, PriorityQueue<Grid> queue) {
-        AtomicBoolean redundant = new AtomicBoolean(false);
-
-        visitedList.forEach(node -> {
-            if (node.getDepth() == newGrid.getDepth()) {
-                redundant.set(true);
-            }
-        });
-
-        queue.forEach(node -> {
-            if (node.getDepth() == newGrid.getDepth()) {
-                redundant.set(true);
-            }
-        });
-
-        return redundant.get();
-    }
-
     public Integer getMemory(ArrayList<Grid> visitedList, PriorityQueue<Grid> queue) {
         return visitedList.size() + queue.size();
     }
@@ -53,8 +35,8 @@ public class SMA {
         queue.forEach(grid -> {
             if (i.get() <= max) {
                 toRemove.add(grid);
+                i.set(i.get() + 1);
             }
-            i.set(i.get() + 1);
         });
         toRemove.forEach(node -> {
             queue.remove(node);
@@ -71,8 +53,6 @@ public class SMA {
 
         System.out.println("Starting SMA* algorithm...");
 
-        queue.add(cState);
-
         while (cState != null && !cState.equals(endGrid)) {
             if (getMemory(visitedList, queue) > maxLimit) {
                 pruneMemory();
@@ -80,10 +60,7 @@ public class SMA {
             if (!visitedList.contains(cState)) {
                 var moves = cState.getMoveableDirections();
                 for (Direction d : moves) {
-                    Grid newNode = new Grid(cState, d);
-                    if (!checkIfRedundant(newNode, visitedList, queue)) {
-                        queue.add(newNode);
-                    }
+                    queue.add(new Grid(cState, d));
                 }
                 visitedList.add(cState);
             }

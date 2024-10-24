@@ -63,7 +63,7 @@ public class Heuristics implements Comparator<Grid> {
             } else {
                 throw new IllegalArgumentException("Invalid heuristic distance.");
             }
-        } else if (algorithm.equals("astar")) {
+        } else if (algorithm.equals("astar") || algorithm.equals("sma")) {
             if (heuristic == 0) { //for Euclidian distance
                 dEstimate1 = s1.getParent().getDistance(); //get distance from start node to parent
                 dEstimate2 = s2.getParent().getDistance(); //get distance from start node to parent

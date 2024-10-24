@@ -104,14 +104,24 @@ public class Main {
                 if (args[1].equals("0")) {
                     startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
                     endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
-                    heuristics = new Heuristics(0, "astar" ,endGrid);
-                    SMA sma = new SMA(startGrid, endGrid, Long.parseLong(args[2]), heuristics);
+                    heuristics = new Heuristics(0, "sma" ,endGrid);
+                    SMA sma;
+                    if (args.length == 3) {
+                        sma = new SMA(startGrid, endGrid, Long.parseLong(args[2]), heuristics);
+                    } else {
+                        sma = new SMA(startGrid, endGrid, Long.parseLong("100"), heuristics);
+                    }
                     sma.solve();
                 } else if (args[1].equals("1")) {
                     startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
                     endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
-                    heuristics = new Heuristics(1, "astar" ,endGrid);
-                    SMA sma = new SMA(startGrid, endGrid, Long.parseLong(args[2]), heuristics);
+                    heuristics = new Heuristics(1, "sma" ,endGrid);
+                    SMA sma;
+                    if (args.length == 3) {
+                        sma = new SMA(startGrid, endGrid, Long.parseLong(args[2]), heuristics);
+                    } else {
+                        sma = new SMA(startGrid, endGrid, Long.parseLong("100"), heuristics);
+                    }
                     sma.solve();
                 } else {
                     System.out.println("Invalid heuristic. Available values are 0 for Euclidian and 1 for Manhattan distances.");

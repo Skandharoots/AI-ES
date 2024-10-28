@@ -9,6 +9,9 @@ import org.aiapp.input.InputResult;
 
 import java.util.ArrayDeque;
 import java.util.Comparator;
+import java.util.regex.Pattern;
+
+import static java.lang.Integer.parseInt;
 
 public class Main {
 
@@ -52,16 +55,36 @@ public class Main {
 
             case "--idfs":
                 if ((args.length == 2)) {
+                    Pattern pattern = Pattern.compile("^[UDRL]+$");
+                    Pattern pattern2 = Pattern.compile("^[0-9]+$");
+                    if (pattern.matcher(args[1]).matches()) {
+                        permutations = inputHandler.createPermutations(args[1]);
+                        startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), permutations);
+                        endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
+                        IDDFS iddfs = new IDDFS(startGrid, endGrid);
+                        iddfs.solve(100);
+                    } else if (pattern2.matcher(args[1]).matches()) {
+                        permutations = new ArrayDeque<>();
+                        startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), permutations);
+                        endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
+                        IDDFS iddfs = new IDDFS(startGrid, endGrid);
+                        iddfs.solve(parseInt(args[1]));
+                    } else {
+                        throw new IllegalArgumentException("Console invalid arguments passed.");
+                    }
+                } else if (args.length == 3) {
                     permutations = inputHandler.createPermutations(args[1]);
                     startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), permutations);
                     endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
+                    IDDFS iddfs = new IDDFS(startGrid, endGrid);
+                    iddfs.solve(parseInt(args[2]));
                 } else {
                     permutations = new ArrayDeque<>();
                     startGrid = new Grid(inputResult.getGrid(), inputResult.getWidth(), inputResult.getHeight(), permutations);
                     endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
+                    IDDFS iddfs = new IDDFS(startGrid, endGrid);
+                    iddfs.solve(100);
                 }
-                IDDFS iddfs = new IDDFS(startGrid, endGrid);
-                iddfs.solve(100);
                 break;
 
             case "--bf":

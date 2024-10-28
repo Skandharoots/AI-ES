@@ -61,7 +61,7 @@ public class Main {
                     endGrid = new Grid(inputResult.getEndGrid(), inputResult.getWidth(), inputResult.getHeight(), new ArrayDeque<>());
                 }
                 IDDFS iddfs = new IDDFS(startGrid, endGrid);
-                iddfs.solve(1000000000);
+                iddfs.solve(100);
                 break;
 
             case "--bf":

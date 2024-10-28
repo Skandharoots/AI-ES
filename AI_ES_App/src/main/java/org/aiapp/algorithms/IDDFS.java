@@ -39,17 +39,18 @@ public class IDDFS {
             permCnt++;
             limit--;
 
-            if (limit <= 0) {
-                System.out.println("-1");
-                return false;
-            }
-
             if (startGrid.equals(endGrid)) {
                 startGrid.visualize();
                 System.out.println(startGrid.visualizeMoves());
                 System.out.println("Moves: " + startGrid.getDepth());
                 return true;
             }
+
+            if (limit <= 0) {
+                System.out.println("-1");
+                return false;
+            }
+
         }
 
         var moves = startGrid.getMoveableDirections();
